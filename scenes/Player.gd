@@ -10,6 +10,7 @@ onready var animationTree = $AnimationTree
 onready var rollTimer = $AttackTimer
 onready var attackTimer = $AttackTimer
 onready var animationState = animationTree.get("parameters/playback")
+onready var hitbox = $Hitbox
 
 enum {
 	NONE, MOVE, ROLL, ATTACK
@@ -23,7 +24,7 @@ func _ready():
 	animationTree.active = true
 	state = MOVE
 
-func _physics_process(delta):
+func _process(delta):
 	match (state):
 		MOVE:
 			if Input.is_action_just_pressed("attack"):
@@ -84,3 +85,14 @@ func reset_velocity():
 
 func set_acceleration(acceleration):
 	ACCELERATION = acceleration
+
+
+func enable_hitbox():
+	hitbox.visible = true
+	hitbox.monitorable = true
+	hitbox.monitoring = true
+
+func disable_hitbox():
+	hitbox.visible = false
+	hitbox.monitorable = false
+	hitbox.monitoring = false
